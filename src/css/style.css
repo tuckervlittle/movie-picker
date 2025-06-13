@@ -1,0 +1,178 @@
+/* Root */
+:root {
+  --body: rgb(80, 47, 26);
+  --header-footer: rgb(245, 102, 0);
+  --border: rgba(153, 153, 153, 0.788);
+}
+
+/* Fonts */
+.limelight {
+  font-family: "Limelight", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.new-amsterdam {
+  font-family: "New Amsterdam", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Style */
+body {
+  background-color: var(--body);
+  color: rgb(140, 137, 142);
+  margin: 0;
+  padding: 0;
+}
+
+header,
+footer {
+  background-color: var(--header-footer);
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+h1 {
+  padding: 0 2.25rem;
+}
+
+#hamButton {
+  color: var(--black);
+  text-decoration: none;
+  font-size: 2.5rem;
+
+  padding: .5rem;
+
+  display: block;
+  position: absolute;
+  top: 1.5rem;
+  left: 0rem;
+}
+
+#hamButton:hover {
+  color: var(--selection1);
+}
+
+#hamButton::before {
+  content: "☰";
+}
+
+#hamButton.open::before {
+  content: "X";
+}
+
+nav {
+  background: var(--body);
+  display: none;
+}
+
+nav.open {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 60%;
+  border-top-right-radius: .75rem;
+  border-bottom-right-radius: .75rem;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+nav.open li {
+  border-bottom-right-radius: .75rem;
+}
+
+nav li {
+  list-style-type: none;
+  border-bottom: 1px solid var(--border);
+  height: 100%;
+  padding: .5rem;
+}
+
+nav li:last-of-type {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#search-nav {
+  font-size: xx-large;
+}
+
+.nav-svg {
+  width: 50px;
+  position: absolute;
+  top: 2.25rem;
+  right: 0rem;
+}
+
+main {
+  padding: 1rem;
+}
+
+button {
+  background-color: rgb(245, 102, 0);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+/* Medium */
+@media screen and (min-width: 48rem) {
+
+  header,
+  footer {
+    padding: 1rem;
+  }
+
+  #hamButton {
+    display: none;
+  }
+
+  .nav-svg {
+    top: 2.25rem;
+    right: 1rem;
+  }
+
+  nav,
+  nav.open {
+    display: block;
+    border-radius: 0;
+    border-top-left-radius: .75rem;
+    border-bottom-right-radius: .75rem;
+    width: 100%;
+  }
+
+  nav.open {
+    text-align: center;
+  }
+
+  nav ul {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 2fr 2fr;
+    padding: 0;
+    align-items: center;
+  }
+
+  nav li {
+    line-height: 59px;
+    padding: 0;
+    border: none;
+    border-right: 1px solid var(--border);
+  }
+}
+
+/* Large */
+@media screen and (min-width: 80rem) {
+
+  
+}
