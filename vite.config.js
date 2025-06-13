@@ -10,7 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/index.html'),
         settings: resolve(__dirname, 'src/settings-page/index.html'),
-        // checkout: resolve(__dirname, 'src/checkout/index.html'),
+        search: resolve(__dirname, 'src/search/index.html'),
         // product: resolve(__dirname, 'src/product_pages/index.html'),
         // product_listing: resolve(__dirname, 'src/product_listing/index.html'),
       },
