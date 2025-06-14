@@ -1,11 +1,17 @@
-import { searchMovies } from './api.mjs';
+import { getSubscriptions } from "./subs.mjs";
 
 export function renderSearch() {
   const content = document.getElementById('search');
   content.innerHTML = `
     <section class="search">
-      <h2>Search for a Movie</h2>
+      <h2>Search for a Title</h2>
       <form id="searchForm">
+        <label>Type:
+          <select name="type">
+            <option value="movie">Movie</option>
+            <option value="tv">TV Show</option>
+          </select>
+        </label>
         <label>Genre:
           <select name="genre" id="genreSelect">
             <option value="">Any</option>
@@ -20,36 +26,26 @@ export function renderSearch() {
         <label>Minimum Rating (0–10):
           <input type="number" name="rating" min="0" max="10" step="0.1" />
         </label>
-        <label>Release Year:
+        <label>Released After (Year):
           <input type="number" name="year" min="1900" max="2025" />
+        </label>
+        <label>Country:
+          <select name="country">
+            <option value="">Any</option>
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="JP">Japan</option>
+            <option value="KR">South Korea</option>
+            <option value="IN">India</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+            <option value="BR">Brazil</option>
+          </select>
         </label>
         <button type="submit">Search</button>
       </form>
+      <div id="searchLoader" class="loader hidden"></div>
       <div id="searchResults"></div>
     </section>
   `;
-
-  document.getElementById('searchForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const genre = form.genre.value;
-    const rating = parseFloat(form.rating.value) || 0;
-    const year = form.year.value;
-
-    const results = await searchMovies({ genre, rating, year });
-
-    const resultsContainer = document.getElementById('searchResults');
-    if (!results || results.length === 0) {
-      resultsContainer.innerHTML = '<p>No movies found.</p>';
-      return;
-    }
-
-    resultsContainer.innerHTML = results.map(movie => `
-      <div class="movie">
-        <h3>${movie.title} (${movie.release_date?.split('-')[0] || 'N/A'})</h3>
-        <p>Rating: ${movie.vote_average}</p>
-        <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title} poster">
-      </div>
-    `).join('');
-  });
 }
