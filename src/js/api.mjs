@@ -4,6 +4,14 @@ const BASE_URL = 'https://api.themoviedb.org/3'
 const STREAMING_API_KEY = '2e567efb8dmsh1e364ab52267a78p18579bjsne28f0bbd14a8'
 // const STREAMING_API_URL = 'https://streaming-availability.p.rapidapi.com/search/title'
 
+const MPAA_ORDER = {
+  G: 0,
+  PG: 1,
+  'PG-13': 2,
+  R: 3,
+  'NC-17': 4,
+  NR: 5
+}
 
 export async function getPopularMoviesByYearRange(startYear, endYear) {
   const endpoint = '/discover/movie?'
@@ -30,8 +38,24 @@ export async function getPopularMoviesByYearRange(startYear, endYear) {
   try {
     const res = await fetch(`${BASE_URL}${endpoint}${baseParams.toString()}`, options)
     const data = await res.json()
+
+    const maxRatingKey = localStorage.getItem('moviePickerMaxRating') || 'PG-13'
+    const maxAllowed = MPAA_ORDER[maxRatingKey]
+    const movies = []
+    for (const movie of data.results || []) {
+      const rating = await getMovieRating(movie.id)
+      const ratingValue = MPAA_ORDER[rating]
+      movie.MPAA_rating = rating
+
+      if (ratingValue <= maxAllowed) {
+        movies.push(movie)
+      }
+
+      if (movies.length === 4) break
+    }
     
-    return data.results?.slice(0, 4)
+    console.log(movies)
+    return movies
   } catch (err) {
     console.error('Error fetching popular movies by range:', err)
     return []

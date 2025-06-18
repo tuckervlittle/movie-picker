@@ -41,7 +41,10 @@ export function renderMovieCards(movies, section = '') {
   return movies.map((movie, index) => `
     <div class="movie" data-title="${movie.title || movie.name}" data-country="${movie.country || 'US'}" data-tmdbid="${movie.tmdb_id || movie.id}">
       <h3>${movie.title} </h3>
+      <div class="year-rating">
       <p class="year">( ${(movie.release_date || '').split('-')[0] || 'N/A'} )</p>
+      <p class="rating">${movie.MPAA_rating || 'Not Rated'}</p>
+      </div>
       <p>⭐ ${movie.vote_average}</p>
       ${movie.poster_path
         ? `<img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title} poster">`

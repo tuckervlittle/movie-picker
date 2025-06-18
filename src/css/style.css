@@ -168,6 +168,7 @@ button {
 .homeHeading h2 {
   margin: 0;
 }
+
 input:focus, 
 select:focus {
   background: rgb(236, 183, 123);
@@ -255,12 +256,29 @@ select[name="maxRating"] {
 
 .movie:hover {
   background: grey;
+  .platforms a {
+    background: black;
+  }
 }
 
 .movie h3 {
   font-size: x-large;
   margin: .5rem .5rem 0 .5rem;
   height: 3.5rem;
+}
+
+.year-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.year-rating .rating {
+  margin: 0 .25rem;
+}
+
+.year-rating * {
+  margin: 0 .25rem;
 }
 
 .rating {
