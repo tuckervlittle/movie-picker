@@ -43,7 +43,7 @@ export function renderMovieCards(movies, section = '') {
       <h3>${movie.title} </h3>
       <div class="year-rating">
       <p class="year">( ${(movie.release_date || '').split('-')[0] || 'N/A'} )</p>
-      <p class="rating">${movie.MPAA_rating || 'Not Rated'}</p>
+      ${movie.MPAA_rating ? `<p class="rating">${movie.MPAA_rating}</p>` : ''}
       </div>
       <p>⭐ ${movie.vote_average}</p>
       ${movie.poster_path
