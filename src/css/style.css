@@ -21,7 +21,7 @@
 /* Style */
 body {
   background-color: var(--body);
-  color: rgb(140, 137, 142);
+  color: rgb(255, 255, 255);
   margin: 0;
   padding: 0;
 }
@@ -29,9 +29,13 @@ body {
 header,
 footer {
   background-color: var(--header-footer);
-  color: white;
+  color: rgb(0, 0, 0);
   padding: 1rem 0;
   text-align: center;
+}
+
+footer p {
+  color: black;
 }
 
 h1 {
@@ -39,7 +43,7 @@ h1 {
 }
 
 #hamButton {
-  color: var(--black);
+  color: white;
   text-decoration: none;
   font-size: 2.5rem;
 
@@ -47,8 +51,12 @@ h1 {
 
   display: block;
   position: absolute;
-  top: 1.5rem;
+  top: .5rem;
   left: 0rem;
+}
+
+.open {
+  top: 1.25rem;
 }
 
 #hamButton:hover {
@@ -97,6 +105,10 @@ nav li:last-of-type {
   border: none;
 }
 
+.nav-links {
+  padding: 0 16rem 0 0;
+}
+
 a {
   text-decoration: none;
   color: white;
@@ -119,11 +131,71 @@ main {
 
 button {
   background-color: rgb(245, 102, 0);
-  color: white;
+  color: black;
   border: none;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   cursor: pointer;
+}
+
+#homePage {
+  text-align: center;
+}
+
+.homeHeading {
+  background: #00000093;
+  font-size: x-large;
+  margin: 1rem;
+  padding: .5rem;
+}
+
+.homeHeading h2 {
+  margin: 0;
+}
+
+#subscriptionForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#subscriptionForm input {
+  height: 22px;
+  width: 22px;
+}
+
+#subscriptionForm label {
+  font-size: large;
+}
+
+label[for="maxRating"] {
+  align-self: end;
+}
+
+select[name="maxRating"] {
+  grid-area: 8 / 1 / 9 / 2;
+  max-width: 50%;
+}
+
+#searchForm {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#searchForm label {
+  display: flex;
+  flex-direction: column;
+  margin-top: .5rem;
+}
+
+#searchForm input,
+#searchForm select,
+#decadeSelect {
+  height: 44px;
+  width: 117px;
+  min-width: max-content;
+  border: none;
+  border-radius: .25rem;
+  margin-top: .2rem;
 }
 
 .loader {
@@ -136,6 +208,91 @@ button {
   animation: spin 1s linear infinite;
   margin: 2rem auto;
   display: block;
+}
+
+.movie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: end;
+}
+
+.movie {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 575px;
+  margin: 1rem;
+  text-align: center;
+  box-shadow: 0px 0px 27px 8px #98BAA8;
+}
+
+.movie h3 {
+  font-size: x-large;
+  margin: .5rem .5rem 0 .5rem;
+  height: 3.5rem;
+}
+
+.rating {
+  border: 2px solid white;
+  margin: 0 auto;
+  padding: .25rem;
+}
+
+.year {
+  margin: 0;
+}
+
+.vote {
+  margin: .75rem;
+}
+
+.movie img {
+  max-width: 225px;
+  align-self: center;
+}
+
+.checkAvailabilityBtn {
+  max-width: 300px;
+  min-width: 175px;
+  align-self: center;
+  margin: .5rem auto;
+}
+
+.platforms {
+  font-size: larger;
+  margin: .5rem;
+}
+
+.platforms a {
+  background: rgba(128, 128, 128, 0.507);
+  font-size: smaller;
+  padding: .25rem;
+  border-radius: .2rem;
+}
+
+hr {
+  margin: 1rem;
+  background: black;
+  border: none;
+  height: 2px;
+}
+
+#random {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#random-movie {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#random-movie img {
+  max-width: 275px;
+  margin: 0 auto;
 }
 
 @keyframes spin {
@@ -194,6 +351,47 @@ button {
     padding: 0;
     border: none;
     border-right: 1px solid var(--border);
+  }
+
+  .nav-links {
+    padding: 0;
+  }
+
+  .search h2 {
+    margin-bottom: 0;
+  }
+
+  #searchForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-around;
+  }
+
+  #searchForm label {
+    display: block;
+  }
+
+  #searchForm input,
+  #searchForm select {
+    height: 44px;
+    max-width: max-content;
+  }
+
+  #random-movie {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 80%;
+    align-items: center;
+    align-self: center;
+  }
+
+  #random-movie img {
+    grid-area: 2 / 1 / 7 / 2;
+  }
+  
+  #random-movie h2 {
+    grid-column: 1/3;
   }
 }
 

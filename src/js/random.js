@@ -1,5 +1,5 @@
 import { loadHeaderFooterWithHam } from "./utils.mjs"
-import { getRandomPopularMovie } from './api.mjs';
+import { renderRandomMovie } from "./random.mjs"
 
 loadHeaderFooterWithHam()
-getRandomPopularMovie()
+renderRandomMovie()

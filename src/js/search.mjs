@@ -1,17 +1,13 @@
-import { getSubscriptions } from "./subs.mjs";
+import { searchMovies, getStreamingPlatforms } from './api.mjs'
+import { getSubscriptions } from "./subs.mjs"
+import { renderMovieCards } from './utils.mjs'
 
 export function renderSearch() {
-  const content = document.getElementById('search');
+  const content = document.getElementById('search')
   content.innerHTML = `
     <section class="search">
-      <h2>Search for a Title</h2>
+      <h2>Search</h2>
       <form id="searchForm">
-        <label>Type:
-          <select name="type">
-            <option value="movie">Movie</option>
-            <option value="tv">TV Show</option>
-          </select>
-        </label>
         <label>Genre:
           <select name="genre" id="genreSelect">
             <option value="">Any</option>
@@ -44,8 +40,74 @@ export function renderSearch() {
         </label>
         <button type="submit">Search</button>
       </form>
+      <hr>
       <div id="searchLoader" class="loader hidden"></div>
-      <div id="searchResults"></div>
+      <div id="searchResults" class="movie-grid"></div>
     </section>
-  `;
+  `
+
+  document.getElementById('searchForm').onsubmit = async (e) => {
+    e.preventDefault()
+    
+    const loader = document.getElementById('searchLoader')
+    const resultsContainer = document.getElementById('searchResults')
+    resultsContainer.innerHTML = ''
+    loader.classList.remove('hidden')
+
+    const form = e.target
+    const type = 'movie'
+    const genre = form.genre.value
+    const rating = parseFloat(form.rating.value) || 0
+    const year = form.year.value
+    const country = form.country.value
+  
+    const results = await searchMovies({ type, genre, rating, year, country })
+    loader.classList.add('hidden')
+  
+    if (!results.length) {
+      resultsContainer.innerHTML = '<p>No titles found.</p>'
+      return
+    }
+  
+    const output = renderMovieCards(results)
+  
+    resultsContainer.innerHTML = output
+    
+    const userSubscriptions = getSubscriptions()
+    console.log(userSubscriptions)
+  
+    document.querySelectorAll('.checkAvailabilityBtn').forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const parent = e.target.closest('.movie')
+        const index = e.target.dataset.index
+        const id = parent.dataset.tmdbid
+        const country = parent.dataset.country || 'us'
+        console.log(id)
+        const platformsEl = document.getElementById(`platforms-${index}`)
+  
+        platformsEl.textContent = 'Checking...'
+  
+        const platforms = await getStreamingPlatforms(id, country)
+        console.log(platforms)
+        if (!platforms.length) {
+          platformsEl.textContent = 'Not available on subscription services. (May be available to rent or buy)'
+          return
+        }
+
+        const matched = platforms.filter(p =>
+          userSubscriptions.includes(p.platform.toLowerCase())
+        )
+    
+        if (!matched.length) {
+          platformsEl.textContent = 'Not available on your selected subscriptions.'
+          return
+        }
+
+  
+        platformsEl.innerHTML = `Available on: ${matched.map(p =>
+          `<a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.name}</a>`
+        ).join(', ')}`
+      })
+    })
+  }
 }
