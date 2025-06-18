@@ -152,6 +152,16 @@ button {
 .homeHeading h2 {
   margin: 0;
 }
+input:focus, 
+select:focus {
+  background: rgb(236, 183, 123);
+  /* color: white; */
+}
+
+input,
+select {
+  background: lightgrey;
+}
 
 #subscriptionForm {
   display: grid;
@@ -227,6 +237,10 @@ select[name="maxRating"] {
   box-shadow: 0px 0px 27px 8px #98BAA8;
 }
 
+.movie:hover {
+  background: grey;
+}
+
 .movie h3 {
   font-size: x-large;
   margin: .5rem .5rem 0 .5rem;
@@ -288,6 +302,11 @@ hr {
   display: flex;
   flex-direction: column;
   text-align: center;
+  font-size: large;
+}
+
+#random-movie h2 {
+  font-size: xx-large;
 }
 
 #random-movie img {
