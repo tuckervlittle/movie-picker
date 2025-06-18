@@ -24,7 +24,7 @@ export async function renderRandomMovie() {
   let rating = null
   let attempts = 0
 
-  while (attempts < 10) {
+  while (attempts < 50) {
     movie = await getRandomPopularMovie()
 
     if (!movie) break
@@ -36,7 +36,9 @@ export async function renderRandomMovie() {
     }
 
     rating = await getMovieRating(movie.id)
+    if (!rating) continue
     const ratingValue = MPAA_ORDER[rating]
+    console.log("tootsie" + ratingValue)
     const maxAllowed = MPAA_ORDER[maxRating]
 
     if (ratingValue <= maxAllowed) break
