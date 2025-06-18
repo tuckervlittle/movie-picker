@@ -39,7 +39,7 @@ export async function renderHome() {
   document.getElementById('decadeSelect').addEventListener('change', async (e) => {
     const selected = parseInt(e.target.value)
     const movies = await getPopularMoviesByYearRange(selected, selected + 9)
-    document.getElementById('decadeMovies').innerHTML = renderMovieCards(movies)
+    document.getElementById('decadeMovies').innerHTML = renderMovieCards(movies, '1')
   })
 
   const userSubscriptions = getSubscriptions()
