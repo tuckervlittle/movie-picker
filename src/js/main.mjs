@@ -40,6 +40,44 @@ export async function renderHome() {
     const selected = parseInt(e.target.value)
     const movies = await getPopularMoviesByYearRange(selected, selected + 9)
     document.getElementById('decadeMovies').innerHTML = renderMovieCards(movies, '1')
+
+    const userSubscriptions = getSubscriptions()
+    console.log(userSubscriptions)
+
+    document.querySelectorAll('.checkAvailabilityBtn').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      const parent = e.target.closest('.movie')
+      const index = e.target.dataset.index
+      const id = parent.dataset.tmdbid
+      const country = parent.dataset.country || 'us'
+      console.log(id)
+      const platformsEl = document.getElementById(`platforms-${index}`)
+
+      platformsEl.textContent = 'Checking...'
+
+      const platforms = await getStreamingPlatforms(id, country)
+      console.log(platforms)
+      console.log("roll")
+      if (!platforms.length) {
+        platformsEl.textContent = 'Not available on subscription services.'
+        return
+      }
+
+      const matched = platforms.filter(p =>
+        userSubscriptions.includes(p.platform.toLowerCase())
+      )
+
+      if (!matched.length) {
+        platformsEl.textContent = 'Not available on your selected subscriptions.'
+        return
+      }
+
+
+      platformsEl.innerHTML = `Available on: ${matched.map(p =>
+        `<a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.name}</a>`
+      ).join(', ')}`
+    })
+    })
   })
 
   const userSubscriptions = getSubscriptions()
