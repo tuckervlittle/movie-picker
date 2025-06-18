@@ -42,6 +42,15 @@ h1 {
   padding: 0 2.25rem;
 }
 
+#no-subs {
+  color: orange;
+  background: rgb(32, 32, 32);
+  border-radius: .75rem;
+  width: max-content;
+  padding: .25rem .75rem;
+  justify-self: center;
+}
+
 #hamButton {
   color: white;
   text-decoration: none;
@@ -53,6 +62,13 @@ h1 {
   position: absolute;
   top: .5rem;
   left: 0rem;
+}
+
+#hamButton.top {
+  top: 6.25rem;
+}
+#nav-img.top {
+  top: 8rem;
 }
 
 .open {

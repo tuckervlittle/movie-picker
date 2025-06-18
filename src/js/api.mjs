@@ -30,7 +30,7 @@ export async function getPopularMoviesByYearRange(startYear, endYear) {
   try {
     const res = await fetch(`${BASE_URL}${endpoint}${baseParams.toString()}`, options)
     const data = await res.json()
-    console.log(data)
+    
     return data.results?.slice(0, 4)
   } catch (err) {
     console.error('Error fetching popular movies by range:', err)
@@ -112,8 +112,7 @@ export async function getStreamingPlatforms(id, country = 'us') {
     })
 
     const data = await res.json()
-    console.log("tootsie")
-    console.log(data)
+    
     const options = data.streamingOptions?.[country.toLowerCase()]
     if (!Array.isArray(options)) return []
 

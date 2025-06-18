@@ -1,3 +1,5 @@
+import { checkSubs } from "./utils.mjs"
+
 const SUBSCRIPTIONS_KEY = 'moviePickerSubscriptions'
 const RATINGS_KEY = 'moviePickerMaxRating'
 
@@ -81,6 +83,7 @@ export function renderSubscriptions() {
 
     saveSubscriptions(selected)
     saveMaxRating(maxRating)
+    checkSubs()
 
     document.getElementById('saveNotice').textContent = 'Subscriptions and preferences saved!'
   })

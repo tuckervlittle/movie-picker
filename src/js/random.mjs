@@ -18,7 +18,7 @@ export async function renderRandomMovie() {
   const recentThreshold = new Date()
   recentThreshold.setDate(today.getDate() - 60)
 
-  const maxRating = getMaxRating()
+  const maxRating = getMaxRating() || 'PG-13'
 
   let movie = null
   let rating = null
@@ -26,7 +26,7 @@ export async function renderRandomMovie() {
 
   while (attempts < 10) {
     movie = await getRandomPopularMovie()
-    console.log(movie)
+
     if (!movie) break
 
     const releaseDate = new Date(movie.release_date)
@@ -36,8 +36,8 @@ export async function renderRandomMovie() {
     }
 
     rating = await getMovieRating(movie.id)
-    const ratingValue = MPAA_ORDER[rating] ?? MPAA_ORDER['NR']
-    const maxAllowed = MPAA_ORDER[maxRating] ?? MPAA_ORDER['NR']
+    const ratingValue = MPAA_ORDER[rating]
+    const maxAllowed = MPAA_ORDER[maxRating]
 
     if (ratingValue <= maxAllowed) break
     attempts++
@@ -72,13 +72,13 @@ export async function renderRandomMovie() {
       const parent = document.getElementById('random-movie')
       const id = parent.dataset.tmdbid
       const country = parent.dataset.country || 'us'
-      console.log(id)
+
       const platformsEl = document.getElementById(`platforms`)
 
       platformsEl.textContent = 'Checking...'
 
       const platforms = await getStreamingPlatforms(id, country)
-      console.log(platforms)
+
       if (!platforms.length) {
         platformsEl.textContent = 'Not available on subscription services. (May be available to rent or buy)'
         return

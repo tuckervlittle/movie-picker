@@ -74,7 +74,6 @@ export function renderSearch() {
     resultsContainer.innerHTML = output
     
     const userSubscriptions = getSubscriptions()
-    console.log(userSubscriptions)
   
     document.querySelectorAll('.checkAvailabilityBtn').forEach(button => {
       button.addEventListener('click', async (e) => {
@@ -82,13 +81,13 @@ export function renderSearch() {
         const index = e.target.dataset.index
         const id = parent.dataset.tmdbid
         const country = parent.dataset.country || 'us'
-        console.log(id)
+
         const platformsEl = document.getElementById(`platforms-${index}`)
   
         platformsEl.textContent = 'Checking...'
   
         const platforms = await getStreamingPlatforms(id, country)
-        console.log(platforms)
+
         if (!platforms.length) {
           platformsEl.textContent = 'Not available on subscription services. (May be available to rent or buy)'
           return

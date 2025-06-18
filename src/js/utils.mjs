@@ -1,3 +1,5 @@
+import { getSubscriptions } from "./subs.mjs"
+
 export function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template
   if (callback) {
@@ -26,6 +28,7 @@ export async function loadHeaderFooterWithHam() {
   await loadHeaderFooter()
   const hamButton = document.getElementById('hamButton')
   const navMenu = document.getElementById('navigation')
+  checkSubs()
   
   hamButton.addEventListener('click', () => {
     navMenu.classList.toggle('open')
@@ -48,4 +51,21 @@ export function renderMovieCards(movies, section = '') {
         <p class="platforms" id="platforms-${section}${index}"></p>
     </div>
   `).join('')
+}
+
+export function checkSubs() {
+  const subs = getSubscriptions() || []
+  const div = document.getElementById('no-subs')
+  const gear = document.getElementById('nav-img')
+  const hamButton = document.getElementById('hamButton')
+
+  if (subs.length == 0) {
+    div.classList.remove('hidden')
+    gear.classList.add('top')
+    hamButton.classList.add('top')
+  } else {
+    div.classList.add('hidden')
+    gear.classList.remove('top')
+    hamButton.classList.remove('top')
+  }
 }
